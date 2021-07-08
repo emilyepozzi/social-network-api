@@ -1,30 +1,30 @@
-const addDateSuffix = (date) => {
-  let dateStr = date.toString();
+const addDate = (date) => {
+  let dayString = date.toString();
 
   // get last char of date string
-  const lastChar = dateStr.charAt(dateStr.length - 1);
+  const charLast = dayString.charAt(dayString.length - 1);
 
-  if (lastChar === "1" && dateStr !== "11") {
-    dateStr = `${dateStr}st`;
-  } else if (lastChar === "2" && dateStr !== "12") {
-    dateStr = `${dateStr}nd`;
-  } else if (lastChar === "3" && dateStr !== "13") {
-    dateStr = `${dateStr}rd`;
+  if (charLast === "1" && dayString !== "11") {
+      dayString = `${dayString}st`;
+  } else if (charLast === "2" && dayString !== "12") {
+    dayString = `${dayString}nd`;
+  } else if (charLast === "3" && dayString !== "13") {
+    dayString = `${dayString}rd`;
   } else {
-    dateStr = `${dateStr}th`;
+    dayString = `${dayString}th`;
   }
 
-  return dateStr;
+  return dayString;
 };
 
-// function to format a timestamp, accepts the timestamp and an `options` object as optional parameters
+
 module.exports = (
   timestamp,
-  { monthLength = "short", dateSuffix = true } = {}
+  { lengthMonth = "short", dateShorten = true } = {}
 ) => {
   let months;
 
-  if (monthLength === "short") {
+  if (lengthMonth === "short") {
     months = {
       0: "Jan",
       1: "Feb",
@@ -57,17 +57,17 @@ module.exports = (
   }
 
   const dateObj = new Date(timestamp);
-  const formattedMonth = months[dateObj.getMonth()];
+  const monthFormat = months[dateObj.getMonth()];
 
-  let dayOfMonth;
+  let dayMonth;
 
-  if (dateSuffix) {
-    dayOfMonth = addDateSuffix(dateObj.getDate());
+  if (dateShorten) {
+    dayMonth = addDate(dateObj.getDate());
   } else {
-    dayOfMonth = dateObj.getDate();
+    dayMonth = dateObj.getDate();
   }
 
-  const year = dateObj.getFullYear();
+  const theYear = dateObj.getFullYear();
 
   let hour;
   // check for 24-hr time
@@ -92,7 +92,7 @@ module.exports = (
     periodOfDay = "am";
   }
 
-  const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`;
+  const formattedTimeStamp = `${monthFormat} ${dayMonth}, ${theYear} at ${hour}:${minutes} ${periodOfDay}`;
 
   return formattedTimeStamp;
 };

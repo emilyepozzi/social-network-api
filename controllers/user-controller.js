@@ -5,7 +5,7 @@ const userController = {
     getAllUsers(req, res) {
         User.find({})
             .select('-__v')
-            .then(dbUserInfo => res.json(dbUserInfo))
+            .then(dbUserInformation => res.json(dbUserInformation))
             .catch(e => {
                 console.log(e);
                 res.status(500).json(e);
@@ -22,12 +22,12 @@ const userController = {
                 path: 'friends',
                 select: '-__v'
             })
-            .then(dbUserInfo => {
-                if (!dbUserInfo) {
+            .then(dbUserInformation => {
+                if (!dbUserInformation) {
                     res.status(404).json({ message: 'No user found at this id' });
                     return;
                 }
-                res.json(dbUserInfo);
+                res.json(dbUserInformation);
             })
             .catch(e => {
                 console.log(e);
@@ -36,17 +36,17 @@ const userController = {
     },
     crteUser({ body }, res) {
         User.create(body)
-            .then(dbUserInfo => res.json(dbUserInfo))
+            .then(dbUserInformation => res.json(dbUserInformation))
             .catch(e => res.status(400).json(e));
     },
     updUser({ params, body }, res) {
         User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
-            .then(dbUserInfo => {
-                if (!dbUserInfo) {
+            .then(dbUserInformation => {
+                if (!dbUserInformation) {
                     res.status(404).json({ message: 'No user found at this id' });
                     return;
                 }
-                res.json(dbUserInfo);
+                res.json(dbUserInformation);
             })
             .catch(e => res.status(400).json(e));
     },
@@ -57,8 +57,8 @@ const userController = {
             { $addToSet: { friends: params.friendId } },
             { new: true, runValidators: true }
         )
-            .then(dbUserInfo => {
-                if (!dbUserInfo) {
+            .then(dbUserInformation => {
+                if (!dbUserInformation) {
                     res.status(404).json({ message: 'No user found at this userId' });
                     return;
                 }
@@ -72,7 +72,7 @@ const userController = {
                             res.status(404).json({ message: 'No user found at this friendId' })
                             return;
                         }
-                        res.json(dbUserInfo);
+                        res.json(dbUserInformation);
                     })
                     .catch(e => res.json(e));
             })
@@ -80,18 +80,18 @@ const userController = {
     },
     // DELETE /api/users/:id
     delUser({ params }, res) {
-        User.findOneAndDelete({ _id: params.id })
-            .then(dbUserInfo => {
-                if (!dbUserInfo) {
+        User.findDelete({ _id: params.id })
+            .then(dbUserInformation => {
+                if (!dbUserInformation) {
                     res.status(404).json({ message: 'No user found at this id' });
                     return;
                 }
-                User.updateMany(
-                    { _id: { $in: dbUserInfo.friends } },
+                User.alotUpdate(
+                    { _id: { $in: dbUserInformation.friends } },
                     { $pull: { friends: params.id } }
                 )
                     .then(() => {
-                        Thought.deleteMany({ username: dbUserInfo.username })
+                        Thought.deleteMany({ username: dbUserInformation.username })
                             .then(() => {
                                 res.json({ message: "Successfully deleted user and assiciated thoughts" });
                             })
@@ -108,8 +108,8 @@ const userController = {
             { $pull: { friends: params.friendId } },
             { new: true, runValidators: true }
         )
-            .then(dbUserInfo => {
-                if (!dbUserInfo) {
+            .then(dbUserInformation => {
+                if (!dbUserInformation) {
                     res.status(404).json({ message: 'No user found at this userId' });
                     return;
                 }
