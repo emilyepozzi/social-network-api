@@ -9,18 +9,18 @@ const UserSchema = new Schema(
     usrname: {
       type: String,
       unique: true,
-      required: "Please place in username.",
+      required: "Place in your user name.",
       trim: true,
     },
     email: {
       type: String,
       trim: true,
       unique: true,
-      required: "Please give email. ",
-      validate: [validateEmail, "Please submit a valid email address"],
+      required: "Place in your email. ",
+      validate: [validateEmail, "Place in a working email."],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please submit a valid email address",
+        "Place in a working email",
       ],
     },
     thoughts: [

@@ -1,7 +1,10 @@
 const routing = require('express').Router();
-const apiRoutes = require('./api');
-routing.use('/api', apiRoutes);
+const routesAPI = require('./api');
+routing.use('/api', routesAPI);
 routing.use((req, res) => {
-    res.status(404).send('<h2>There is an error!</h2>');
+
+    res.status(404).send('<h3>Error!</h3>');
 });
+
+
 module.exports = routing;

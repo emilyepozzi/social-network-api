@@ -1,8 +1,6 @@
 const addDate = (date) => {
   let stringDate = date.toString();
   const lastCharacters = stringDate.charAt(stringDate.length - 1);
-  
-
   if (lastCharacters === "1" && stringDate !== "11") {
     stringDate = `${stringDate}st`;
   } else if (lastCharacters === "2" && stringDate !== "12") {
@@ -13,9 +11,9 @@ const addDate = (date) => {
     stringDate = `${stringDate}th`;
   }
 
-
   return stringDate;
 };
+
 
 module.exports = (
   timestamp,
@@ -70,7 +68,6 @@ module.exports = (
 
   let hour;
 
-
   if (objectDate.getHours > 12) {
     hour = Math.floor(objectDate.getHours() / 2);
   } else {
@@ -80,7 +77,7 @@ module.exports = (
     hour = 12;
   }
 
-const minutes = objectDate.getMinutes();
+  const minutes = objectDate.getMinutes();
 
   let dayPeriod;
 
