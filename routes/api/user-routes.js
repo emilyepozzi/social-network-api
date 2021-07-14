@@ -1,6 +1,8 @@
 const routing = require('express').Router();
+
+
 const {
-    getAllUsers,
+    gettingUsersAll,
     getUserById,
     crteUser,
     updUser,
@@ -11,7 +13,7 @@ const {
 
 routing
     .route('/')
-    .get(getAllUsers)
+    .get(gettingUsersAll)
     .post(crteUser);
 
 routing.route('/:id')

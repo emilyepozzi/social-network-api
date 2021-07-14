@@ -11,7 +11,8 @@ const thatControl = {
                 res.status(500).json(e);
             })
     },
-    // GET /api/thoughts/:id
+   
+    
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
             .populate({ path: 'reactions', select: '-__v' })
@@ -28,8 +29,10 @@ const thatControl = {
                 res.status(400).json(e);
             });
     },
-    // POST /api/thoughts
-    crteThought({ body }, res) {
+   
+    
+
+    creatingThought({ body }, res) {
         Thought.create(body)
             .then(({ _id }) => {
                 User.findOneAndUpdate(

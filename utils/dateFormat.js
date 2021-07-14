@@ -1,22 +1,21 @@
 const addDate = (date) => {
-  let dayString = date.toString();
+  let stringDate = date.toString();
+  const lastCharacters = stringDate.charAt(stringDate.length - 1);
+  
 
-  // get last char of date string
-  const charLast = dayString.charAt(dayString.length - 1);
-
-  if (charLast === "1" && dayString !== "11") {
-      dayString = `${dayString}st`;
-  } else if (charLast === "2" && dayString !== "12") {
-    dayString = `${dayString}nd`;
-  } else if (charLast === "3" && dayString !== "13") {
-    dayString = `${dayString}rd`;
+  if (lastCharacters === "1" && stringDate !== "11") {
+    stringDate = `${stringDate}st`;
+  } else if (lastCharacters === "2" && stringDate !== "12") {
+    stringDate = `${stringDate}nd`;
+  } else if (lastCharacters === "3" && stringDate !== "13") {
+    stringDate = `${stringDate}rd`;
   } else {
-    dayString = `${dayString}th`;
+    stringDate = `${stringDate}th`;
   }
 
-  return dayString;
-};
 
+  return stringDate;
+};
 
 module.exports = (
   timestamp,
@@ -56,42 +55,41 @@ module.exports = (
     };
   }
 
-  const dateObj = new Date(timestamp);
-  const monthFormat = months[dateObj.getMonth()];
+  const objectDate = new Date(timestamp);
+  const monthFormat = months[objectDate.getMonth()];
 
   let dayMonth;
 
   if (dateShorten) {
-    dayMonth = addDate(dateObj.getDate());
+    dayMonth = addDate(objectDate.getDate());
   } else {
-    dayMonth = dateObj.getDate();
+    dayMonth = objectDate.getDate();
   }
 
-  const theYear = dateObj.getFullYear();
+  const theYear = objectDate.getFullYear();
 
   let hour;
   // check for 24-hr time
-  if (dateObj.getHours > 12) {
-    hour = Math.floor(dateObj.getHours() / 2);
+  if (objectDate.getHours > 12) {
+    hour = Math.floor(objectDate.getHours() / 2);
   } else {
-    hour = dateObj.getHours();
+    hour = objectDate.getHours();
   }
-  // if hour is 0 (12:00am), change it to 12
+
   if (hour === 0) {
     hour = 12;
   }
 
-  const minutes = dateObj.getMinutes();
+  const minutes = objectDate.getMinutes();
 
   // set `am` or `pm`
   let periodOfDay;
 
-  if (dateObj.getHours() >= 12) {
+  if (objectDate.getHours() >= 12) {
     periodOfDay = "pm";
   } else {
     periodOfDay = "am";
   }
-
   const formattedTimeStamp = `${monthFormat} ${dayMonth}, ${theYear} at ${hour}:${minutes} ${periodOfDay}`;
 
   return formattedTimeStamp;
