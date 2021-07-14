@@ -1,4 +1,4 @@
-const routed = require('express').Router();
+const routing = require('express').Router();
 const {
     getThoughts,
     getThoughtsById,
