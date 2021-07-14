@@ -16,13 +16,13 @@ routing
     .get(gettingUsersAll)
     .post(crteUser);
 
+    routing.route('/:userId/friends/:friendId')
+    .post(addFriend)
+    .delete(delFriend)
+
 routing.route('/:id')
     .get(getUserById)
     .put(updUser)
     .delete(delUser)
-
-routing.route('/:userId/friends/:friendId')
-    .post(addFriend)
-    .delete(delFriend)
 
 module.exports = routing;
