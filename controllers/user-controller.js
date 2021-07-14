@@ -1,7 +1,6 @@
 const { User, Thought } = require('../models');
 
-const userController = {
-    // GET /api/users
+const useContr = {
     getAllUsers(req, res) {
         User.find({})
             .select('-__v')
@@ -11,7 +10,9 @@ const userController = {
                 res.status(500).json(e);
             })
     },
-    // GET /api/users/:id
+   
+    
+
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
             .populate({
@@ -131,4 +132,4 @@ const userController = {
     }
 }
 
-module.exports = userController;
+module.exports = useContr;
