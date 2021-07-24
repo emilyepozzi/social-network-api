@@ -1,6 +1,9 @@
 const addDate = (date) => {
+
   let stringDate = date.toString();
+
   const lastCharacters = stringDate.charAt(stringDate.length - 1);
+
   if (lastCharacters === "1" && stringDate !== "11") {
     stringDate = `${stringDate}st`;
   } else if (lastCharacters === "2" && stringDate !== "12") {
@@ -12,13 +15,17 @@ const addDate = (date) => {
   }
 
   return stringDate;
+
 };
 
 
 module.exports = (
   timestamp,
+
   { lengthMonth = "short", dateShorten = true } = {}
+
 ) => {
+
   let months;
 
   if (lengthMonth === "short") {
@@ -51,9 +58,11 @@ module.exports = (
       10: "November",
       11: "December",
     };
+
   }
 
   const objectDate = new Date(timestamp);
+  
   const monthFormat = months[objectDate.getMonth()];
 
   let dayMonth;
