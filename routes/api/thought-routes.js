@@ -1,5 +1,7 @@
 const routing = require('express').Router();
 const {
     getThoughts,
-    getThoughtsById, 
-};
+    getThoughtById, 
+} = require('../../controllers/thought-controller');
+
+module.exports = routing;

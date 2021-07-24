@@ -2,7 +2,7 @@ const routing = require('express').Router();
 
 
 const {
-    gettingUsersAll,
+    getAllUsers,
     getUserById,
     crteUser,
     updUser,
@@ -13,7 +13,7 @@ const {
 
 routing
     .route('/')
-    .get(gettingUsersAll)
+    .get(getAllUsers)
     .post(crteUser);
 
     routing.route('/:userId/friends/:friendId')
