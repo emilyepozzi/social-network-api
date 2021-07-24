@@ -1,7 +1,11 @@
 const { Schema, model } = require("mongoose");
+
 const dateFormat = require("../utils/dateFormat");
+
 const reactSch = require("./Reactions");
+
 const thtScheme = new Schema(
+
   {
     usrname: {
       type: String,
@@ -19,14 +23,18 @@ const thtScheme = new Schema(
       get: (createdAtVal) => dateFormat(createdAtVal),
     },
     reactions: [reactSch],
+
   },
+
   {
     toJSON: {
       virtuals: true,
       getters: true,
     },
     id: false,
+    
   }
+
 );
 
 thtScheme.virtual("reactCnt").get(function () {
